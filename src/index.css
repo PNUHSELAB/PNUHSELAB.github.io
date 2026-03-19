@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-hse-green: #38a169;
+  --color-hse-blue: #3182ce;
+  --color-hse-dark: #2d3748;
+}
+
+@layer base {
+  body {
+    @apply text-gray-800 bg-white;
+  }
+}
