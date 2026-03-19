@@ -10,7 +10,8 @@ export default defineConfig({
     react(),
   ],
   build: {
-    target: 'esnext',
-    minify: false
+    rollupOptions: {
+      external: ['three']
+    }
   }
 })
