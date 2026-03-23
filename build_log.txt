@@ -1,0 +1,13 @@
+file:///C:/Users/hj264/Desktop/%EB%8C%80%ED%95%99%204-1/%EC%97%B0%EA%B5%AC%EC%8B%A4%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80/node_modules/vite/dist/node/cli.js:366
+			for (const name of Object.keys(options)) if (name !== "--" && !this.hasOption(name) && !globalCommand.hasOption(name)) throw new CACError(`Unknown option \`${name.length > 1 ? `--${name}` : `-${name}`}\``);
+			                                                                                                                             ^
+
+CACError: Unknown option `--color`
+    at Command.checkUnknownOptions (file:///C:/Users/hj264/Desktop/%EB%8C%80%ED%95%99%204-1/%EC%97%B0%EA%B5%AC%EC%8B%A4%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80/node_modules/vite/dist/node/cli.js:366:129)
+    at CAC.runMatchedCommand (file:///C:/Users/hj264/Desktop/%EB%8C%80%ED%95%99%204-1/%EC%97%B0%EA%B5%AC%EC%8B%A4%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80/node_modules/vite/dist/node/cli.js:607:11)
+    at CAC.parse (file:///C:/Users/hj264/Desktop/%EB%8C%80%ED%95%99%204-1/%EC%97%B0%EA%B5%AC%EC%8B%A4%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80/node_modules/vite/dist/node/cli.js:563:17)
+    at file:///C:/Users/hj264/Desktop/%EB%8C%80%ED%95%99%204-1/%EC%97%B0%EA%B5%AC%EC%8B%A4%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80/node_modules/vite/dist/node/cli.js:835:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:370:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+
+Node.js v24.4.1

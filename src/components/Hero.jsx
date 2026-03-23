@@ -1,55 +1,68 @@
 import React from 'react';
-import { ArrowRight, Settings } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import InteractiveBrain from './InteractiveBrain';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center">
-      {/* Background with gradient and grid pattern for engineering feel */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 z-0"></div>
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <section id="home" className="relative h-[90vh] md:h-screen w-full flex items-center justify-center bg-transparent overflow-hidden">
       
-      {/* Decorative Blur Circles */}
-      <div className="absolute top-20 right-0 w-96 h-96 bg-hse-green/10 rounded-full blur-3xl opacity-50 z-0 mix-blend-multiply flex-shrink-0"></div>
-      <div className="absolute top-60 left-10 w-72 h-72 bg-hse-blue/10 rounded-full blur-3xl opacity-50 z-0 mix-blend-multiply flex-shrink-0"></div>
+      {/* 1. Giant Background Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 mt-16 lg:mt-0">
+        <h1 className="text-[18vw] font-black text-slate-900/5 tracking-tighter whitespace-nowrap font-primary leading-none transition-all duration-1000">
+          HSE LAB.
+        </h1>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          
-          {/* Left Content Area */}
-          <div className="lg:w-1/2">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-hse-blue font-medium text-sm mb-6 animate-fade-in-up">
-              <Settings size={16} className="animate-spin-slow" />
-              Innovating for Human Safety
-            </div>
-            
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-6 leading-tight">
-              Advanced Research in <br className="hidden lg:block"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-hse-blue to-hse-green">Human & Safety Engineering</span>
-            </h1>
-            
-            <p className="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
-              HSE Lab is dedicated to pioneering engineering solutions that enhance human capabilities, ensure safety, and build resilient systems for the future.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#research" className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-lg bg-hse-blue hover:bg-blue-700 text-white font-semibold transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40">
-                Explore Our Research
-                <ArrowRight size={20} />
-              </a>
-              <a href="#about" className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-lg bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold transition-all shadow-sm">
-                Learn More About Us
-              </a>
-            </div>
-          </div>
-
-          {/* Right 3D Interactive Area */}
-          <div className="lg:w-1/2 w-full relative">
-            <div className="absolute inset-0 bg-blue-400/5 rounded-full blur-3xl"></div>
+      {/* 2. 3D Model Area (Centered) */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 pt-16 lg:pt-0">
+        <div className="w-full h-full max-w-7xl max-h-[800px] flex items-center justify-center scale-110 lg:scale-110">
+            {/* The 3D model placeholder (currently the brain) */}
             <InteractiveBrain />
+        </div>
+      </div>
+
+      {/* 3. Overlay UI Content */}
+      <div className="absolute inset-0 z-20 pointer-events-none p-6 pb-12 md:p-12 lg:p-16 flex flex-col justify-between">
+        
+        {/* Top Spacer for the existing Header */}
+        <div className="w-full h-24 md:h-28 shrink-0"></div>
+        
+        <div className="flex-1 w-full relative">
+           {/* Top Left small info */}
+           <div className="absolute top-0 left-0 hidden md:flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 text-gray-500 font-medium text-xs tracking-widest uppercase pointer-events-auto bg-white/40 backdrop-blur-md">
+             <span className="w-1.5 h-1.5 rounded-full bg-hse-green animate-pulse"></span>
+             v.0.1 ALPHA / STAGE 01
+           </div>
+
+           {/* Top Right small info */}
+           <div className="absolute top-0 right-0 hidden md:block text-xs font-semibold tracking-wider text-gray-400 uppercase pointer-events-auto pt-2">
+             40+ Interactive Nodes Active
+           </div>
+        </div>
+
+        {/* Bottom Elements */}
+        <div className="w-full flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 pointer-events-auto pb-4 md:pb-0">
+          
+          {/* Bottom Left: Lab Description */}
+          <div className="max-w-md w-full lg:w-auto text-center lg:text-left mt-auto">
+            <p className="text-sm md:text-base text-slate-800 leading-relaxed font-medium bg-white/40 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-4 lg:p-0 rounded-2xl lg:rounded-none border border-white/50 lg:border-none shadow-sm lg:shadow-none">
+              Experience the tactile harmony of real-time physics. <span className="text-slate-900 font-bold">HSE Lab</span> merges high-fidelity systems with minimalist aesthetics to create visceral digital experiences that respond to your presence.
+            </p>
           </div>
 
+          {/* Bottom Right: Black Pill Button (Launch Lab) */}
+          <div className="shrink-0 flex items-center justify-center lg:justify-end w-full lg:w-auto pointer-events-auto">
+             <Link to="/about" className="group flex items-center justify-center gap-4 pl-6 pr-2 py-2 rounded-full bg-slate-900 hover:bg-black text-white transition-all shadow-xl hover:shadow-2xl active:scale-95 duration-300 w-full md:w-auto">
+               <span className="text-sm font-bold tracking-wide font-primary">Launch Lab</span>
+               <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-900 group-hover:-rotate-45 transition-transform duration-300 shadow-sm">
+                  <ArrowRight size={16} strokeWidth={3} />
+               </div>
+             </Link>
+          </div>
+          
         </div>
+
       </div>
     </section>
   );

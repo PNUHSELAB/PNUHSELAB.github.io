@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
 import pnuLogo from '../assets/signature04.png';
@@ -16,13 +17,13 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Research', href: '#research' },
-    { name: 'Professor', href: '#professor' },
-    { name: 'People', href: '#people' },
-    { name: 'Publication', href: '#publication' },
-    { name: 'News', href: '#news' },
-    { name: 'Photo', href: '#photo' },
+    { name: 'About', href: '/about' },
+    { name: 'Research', href: '/research' },
+    { name: 'Professor', href: '/professor' },
+    { name: 'People', href: '/people' },
+    { name: 'Publication', href: '/publication' },
+    { name: 'News', href: '/news' },
+    { name: 'Photo', href: '/photo' },
   ];
 
   return (
@@ -30,23 +31,23 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <a href="#home" className="flex items-center gap-4 md:gap-8">
+            <Link to="/" className="flex items-center gap-4 md:gap-8">
               <img src={pnuLogo} alt="PNU Logo" className="h-16 md:h-20 w-auto object-contain transition-all duration-300 mix-blend-multiply" />
               <div className="h-12 w-px bg-gray-300 hidden md:block"></div> {/* Divider */}
-              <img src={logo} alt="HSE Lab Logo" className="h-28 md:h-36 w-auto object-contain transition-all duration-300 mix-blend-multiply" />
-            </a>
+              <img src={logo} alt="HSE Lab Logo" className="h-32 md:h-44 lg:h-48 w-auto object-contain transition-all duration-300 mix-blend-multiply" />
+            </Link>
           </div>
 
           {/* Desktop Nav */}
           <nav className="hidden xl:flex space-x-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-gray-600 hover:text-hse-blue font-medium transition-colors duration-200 whitespace-nowrap"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -67,14 +68,14 @@ const Header = () => {
         <div className="xl:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-gray-600 hover:text-hse-blue font-medium px-2 py-1"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

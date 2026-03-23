@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import logo from '../assets/logo.png';
 
@@ -9,8 +10,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           
           <div className="space-y-6">
-            <div className="flex items-center gap-3 bg-white p-2 rounded-lg inline-flex w-fit">
-              <img src={logo} alt="HSE Lab Logo" className="h-10 w-auto object-contain" />
+            <div className="flex items-center gap-3 w-fit">
+              <img src={logo} alt="HSE Lab Logo" className="h-16 w-auto object-contain mix-blend-multiply" />
             </div>
             <p className="text-gray-400 leading-relaxed text-sm pr-4">
               Human & Safety Engineering Lab is committed to ensuring optimal human performance, health, and safety through innovative engineering research.
@@ -48,11 +49,16 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="space-y-3">
-              {['Home', 'About Us', 'Research', 'Members'].map((link) => (
-                <li key={link}>
-                  <a href={`#${link.toLowerCase().replace(' ', '')}`} className="text-gray-400 hover:text-white hover:underline transition-all text-sm">
-                    {link}
-                  </a>
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'About Us', path: '/about' },
+                { name: 'Research', path: '/research' },
+                { name: 'Members', path: '/people' }
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-gray-400 hover:text-white hover:underline transition-all text-sm">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,13 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-hse-green: #38a169;
-  --color-hse-blue: #3182ce;
-  --color-hse-dark: #2d3748;
+  /* Chic and sophisticated color palette */
+  --color-hse-green: #14b8a6; /* Elegant, modern teal/emerald */
+  --color-hse-blue: #0f172a;  /* Deep, sleek obsidian/navy */
+  --color-hse-dark: #1e293b;  /* Refined charcoal */
 }
 
 @layer base {
   body {
-    @apply text-gray-800 bg-white;
+    font-family: 'Inter', sans-serif;
+    @apply text-slate-700 bg-[#FCFCFD]; /* Very subtle premium off-white shadow */
+  }
+  h1, h2, h3, h4, h5, h6, .font-primary {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em; /* Tighter tracking for a highly modern UI feel */
   }
 }
