@@ -6,11 +6,19 @@ import * as THREE from 'three';
 const BrainNodes = () => {
   const groupRef = useRef();
   
-  // Rotate the entire brain system slowly
+  const targetRotation = useRef({ x: 0, y: 0 });
+
+  // Rotate the entire brain system interactively based on cursor
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
-      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
+      // Target rotation based on pointer (-1 to +1 range)
+      // Dividing by 4 gives a nice subtle range of motion
+      targetRotation.current.x = THREE.MathUtils.lerp(targetRotation.current.x, (state.pointer.y * Math.PI) / 8, 0.05);
+      targetRotation.current.y = THREE.MathUtils.lerp(targetRotation.current.y, (state.pointer.x * Math.PI) / 4, 0.05);
+      
+      groupRef.current.rotation.x = targetRotation.current.x;
+      groupRef.current.rotation.y = targetRotation.current.y + state.clock.elapsedTime * 0.05;
+      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
     }
   });
 
@@ -114,8 +122,7 @@ const InteractiveBrain = () => {
         <OrbitControls 
             enableZoom={false} 
             enablePan={false}
-            autoRotate={true}
-            autoRotateSpeed={0.5}
+            enableRotate={false}
         />
       </Canvas>
     </div>

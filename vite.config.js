@@ -10,8 +10,6 @@ export default defineConfig({
     react(),
   ],
   build: {
-    rollupOptions: {
-      external: ['three']
-    }
+    // Let Vite bundle three.js naturally
   }
 })
