@@ -1,33 +1,40 @@
-import React from 'react';
 import { Target, Lightbulb, ShieldCheck } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const About = () => {
   const features = [
     {
       icon: <Target className="w-6 h-6 text-hse-blue" />,
-      title: "Our Mission",
-      description: "To advance the frontier of human safety through innovative engineering and smart technologies."
+      title: "Lab Mission",
+      description: "The HSE Lab investigates and understands the capabilities and limitations of human beings in the design of workplaces and consumer products."
     },
     {
       icon: <Lightbulb className="w-6 h-6 text-hse-green" />,
-      title: "Innovation Focus",
-      description: "Creating practical, interdisciplinary solutions that solve real-world industrial challenges."
+      title: "Human-Centered Design",
+      description: "We approach engineering from the perspective of the people who use, operate, and live with systems in everyday environments."
     },
     {
       icon: <ShieldCheck className="w-6 h-6 text-hse-blue" />,
-      title: "Reliability & Trust",
-      description: "Developing robust systems that prioritize human well-being in complex environments."
+      title: "Safety Engineering",
+      description: "Our research connects ergonomics, biomechanics, and safety management to improve health, performance, and reliability."
     }
   ];
 
   return (
-    <section id="about" className="py-24 bg-white relative">
+    <section id="about" className="pt-52 pb-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="flex justify-center mb-8">
+            <img
+              src={logo}
+              alt="HSE Lab Logo"
+              className="w-full max-w-[420px] md:max-w-[520px] h-auto object-contain"
+            />
+          </div>
           <h2 className="text-sm font-semibold text-hse-blue tracking-wide uppercase mb-2">About The Lab</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Pioneering Safety Through Engineering</h3>
+          <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Welcome to The Human &amp; Safety Engineering Lab</h3>
           <p className="text-lg text-gray-600 leading-relaxed">
-            The Human & Safety Engineering (HSE) Lab is a premier research group focused on the intersection of human factors and engineering systems. We strive to create safer, more efficient environments for workers across various industries.
+            The Human &amp; Safety Engineering Lab at Pusan National University studies human capabilities and limitations so that workplaces, products, and systems can be designed to be safer, healthier, and more effective.
           </p>
         </div>
 

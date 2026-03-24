@@ -54,7 +54,7 @@ const Professor = () => {
   ];
 
   return (
-    <div className="pt-32 pb-20 min-h-screen bg-gray-50/50">
+    <div className="pt-52 pb-20 min-h-screen bg-gray-50/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Profile Card */}
