@@ -45,28 +45,30 @@ const Header = () => {
 
   const menuItems = useMemo(
     () =>
-      [
-        ...navLinks.map((link) => ({
+      navLinks.map((link) => {
+        const children =
+          link.name === 'Research'
+            ? researchSubLinks
+            : link.name === 'People'
+              ? peopleSubLinks
+              : link.name === 'Publication'
+                ? publicationSubLinks
+                : undefined;
+
+        return {
           label: link.name,
           ariaLabel: `Go to ${link.name.toLowerCase()} page`,
           link: link.href,
-        })),
-        ...researchSubLinks.slice(1).map((link) => ({
-          label: link.name,
-          ariaLabel: `Go to ${link.name.toLowerCase()} page`,
-          link: link.href,
-        })),
-        ...peopleSubLinks.map((link) => ({
-          label: link.name,
-          ariaLabel: `Go to ${link.name.toLowerCase()} section`,
-          link: link.href,
-        })),
-        ...publicationSubLinks.slice(1).map((link) => ({
-          label: link.name,
-          ariaLabel: `Go to ${link.name.toLowerCase()} page`,
-          link: link.href,
-        })),
-      ],
+          children: children?.map((childLink) => ({
+            label: childLink.name,
+            ariaLabel:
+              link.name === 'People'
+                ? `Go to ${childLink.name.toLowerCase()} section`
+                : `Go to ${childLink.name.toLowerCase()} page`,
+            link: childLink.href,
+          })),
+        };
+      }),
     []
   );
 
@@ -83,21 +85,21 @@ const Header = () => {
   }, [isHomePage]);
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${useDarkHeader ? 'bg-white/92 backdrop-blur-xl shadow-[0_10px_40px_rgba(15,23,42,0.08)] py-3 border-b border-slate-200/80' : 'bg-transparent py-5'}`}>
-      <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
-        <div className="flex items-center justify-between gap-6 xl:gap-10">
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${useDarkHeader ? 'bg-white/92 backdrop-blur-xl shadow-[0_10px_40px_rgba(15,23,42,0.08)] py-2.5 md:py-3 border-b border-slate-200/80' : 'bg-transparent py-3 md:py-5'}`}>
+      <div className="w-full max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12">
+        <div className="flex items-center justify-between gap-3 md:gap-6 xl:gap-10">
           <div className="flex items-center shrink-0">
-            <Link to="/" className="flex items-center gap-4 md:gap-8 max-w-full">
+            <Link to="/" className="flex items-center gap-2.5 sm:gap-4 md:gap-8 max-w-full">
               <img
                 src={pnuLogo}
                 alt="PNU Logo"
-                className={`h-16 md:h-20 w-auto object-contain transition-all duration-300 ${useDarkHeader ? 'brightness-100 contrast-100' : 'brightness-0 invert contrast-125 drop-shadow-[0_0_18px_rgba(255,255,255,0.16)]'}`}
+                className={`h-10 sm:h-12 md:h-20 w-auto object-contain transition-all duration-300 ${useDarkHeader ? 'brightness-100 contrast-100' : 'brightness-0 invert contrast-125 drop-shadow-[0_0_18px_rgba(255,255,255,0.16)]'}`}
               />
-              <div className={`h-12 w-px hidden md:block ${useDarkHeader ? 'bg-slate-300/80' : 'bg-white/20'}`}></div>
+              <div className={`h-10 w-px hidden lg:block ${useDarkHeader ? 'bg-slate-300/80' : 'bg-white/20'}`}></div>
               <img
                 src={logo}
                 alt="HSE Lab Logo"
-                className={`h-[6.5rem] md:h-[7.5rem] xl:h-[8.5rem] 2xl:h-[9.5rem] w-auto object-contain transition-all duration-300 ${useDarkHeader ? 'brightness-0 contrast-125 opacity-95' : 'drop-shadow-[0_0_22px_rgba(255,255,255,0.12)]'}`}
+                className={`h-[3.75rem] sm:h-[4.8rem] md:h-[7.5rem] xl:h-[8.5rem] 2xl:h-[9.5rem] w-auto object-contain transition-all duration-300 ${useDarkHeader ? 'brightness-0 contrast-125 opacity-95' : 'drop-shadow-[0_0_22px_rgba(255,255,255,0.12)]'}`}
               />
             </Link>
           </div>
@@ -210,8 +212,8 @@ const Header = () => {
               socialItems={[]}
               displaySocials={false}
               displayItemNumbering
-              menuButtonColor={useDarkHeader ? '#0f172a' : '#ffffff'}
-              openMenuButtonColor={useDarkHeader ? '#0f172a' : '#ffffff'}
+              menuButtonColor="#0f172a"
+              openMenuButtonColor="#0f172a"
               changeMenuColorOnOpen
               colors={useDarkHeader ? ['#e2e8f0', '#cbd5e1'] : ['#d9fff0', '#dbeafe']}
               accentColor="#6cff7f"

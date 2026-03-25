@@ -23,6 +23,7 @@ export default function StaggeredMenu({
   onMenuClose,
 }) {
   const [open, setOpen] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState(null);
   const openRef = useRef(false);
   const panelRef = useRef(null);
   const preLayersRef = useRef(null);
@@ -257,6 +258,7 @@ export default function StaggeredMenu({
     }
     openRef.current = false;
     setOpen(false);
+    setExpandedIndex(null);
     onMenuClose?.();
     playClose();
     animateIcon(false);
@@ -268,6 +270,9 @@ export default function StaggeredMenu({
     const target = !openRef.current;
     openRef.current = target;
     setOpen(target);
+    if (!target) {
+      setExpandedIndex(null);
+    }
     if (target) {
       onMenuOpen?.();
       playOpen();
@@ -301,6 +306,14 @@ export default function StaggeredMenu({
   }, [closeOnClickAway, closeMenu, open]);
 
   const wrapperClassName = `${className ? `${className} ` : ''}staggered-menu-wrapper${isFixed ? ' fixed-wrapper' : ''}`;
+
+  const handleGroupEnter = useCallback((index) => {
+    setExpandedIndex(index);
+  }, []);
+
+  const handleGroupLeave = useCallback((index) => {
+    setExpandedIndex((current) => (current === index ? null : current));
+  }, []);
 
   return (
     <div
@@ -345,16 +358,51 @@ export default function StaggeredMenu({
         <div className="sm-panel-inner">
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items.map((item, index) => (
-              <li className="sm-panel-itemWrap" key={`${item.label}-${index}`}>
-                {isExternalLink(item.link) ? (
-                  <a className="sm-panel-item" href={item.link} aria-label={item.ariaLabel} data-index={index + 1} onClick={closeMenu}>
-                    <span className="sm-panel-itemLabel">{item.label}</span>
-                  </a>
-                ) : (
-                  <Link className="sm-panel-item" to={item.link} aria-label={item.ariaLabel} data-index={index + 1} onClick={closeMenu}>
-                    <span className="sm-panel-itemLabel">{item.label}</span>
-                  </Link>
-                )}
+              <li
+                className="sm-panel-itemWrap"
+                key={`${item.label}-${index}`}
+                onMouseEnter={() => handleGroupEnter(index)}
+                onMouseLeave={() => handleGroupLeave(index)}
+              >
+                <div className={`sm-panel-itemGroup${expandedIndex === index ? ' is-expanded' : ''}`}>
+                  {isExternalLink(item.link) ? (
+                    <a className="sm-panel-item" href={item.link} aria-label={item.ariaLabel} data-index={index + 1} onClick={closeMenu}>
+                      <span className="sm-panel-itemLabel">{item.label}</span>
+                    </a>
+                  ) : (
+                    <Link className="sm-panel-item" to={item.link} aria-label={item.ariaLabel} data-index={index + 1} onClick={closeMenu}>
+                      <span className="sm-panel-itemLabel">{item.label}</span>
+                    </Link>
+                  )}
+
+                  {item.children?.length ? (
+                    <div className="sm-panel-submenu" aria-label={`${item.label} submenu`}>
+                      {item.children.map((child, childIndex) =>
+                        isExternalLink(child.link) ? (
+                          <a
+                            key={`${child.label}-${childIndex}`}
+                            className="sm-panel-subitem"
+                            href={child.link}
+                            aria-label={child.ariaLabel}
+                            onClick={closeMenu}
+                          >
+                            <span>{child.label}</span>
+                          </a>
+                        ) : (
+                          <Link
+                            key={`${child.label}-${childIndex}`}
+                            className="sm-panel-subitem"
+                            to={child.link}
+                            aria-label={child.ariaLabel}
+                            onClick={closeMenu}
+                          >
+                            <span>{child.label}</span>
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  ) : null}
+                </div>
               </li>
             ))}
           </ul>

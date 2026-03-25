@@ -12,7 +12,7 @@ const photoGroups = [
 
 const Photo = () => {
   return (
-    <section className="border-t border-gray-100 bg-white pt-48 pb-24">
+    <section className="border-t border-gray-100 bg-white pt-32 md:pt-48 pb-20 md:pb-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hse-blue">Gallery</p>

@@ -47,7 +47,7 @@ const researchInterests = [
 
 const ResearchAreas = () => {
   return (
-    <section id="research" className="pt-52 pb-24 bg-gray-50 border-t border-gray-100">
+    <section id="research" className="pt-36 md:pt-52 pb-20 md:pb-24 bg-gray-50 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hse-green">Research Areas</p>

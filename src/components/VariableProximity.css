@@ -17,7 +17,7 @@
     rgba(255, 255, 255, 0.1) 100%
   );
   background-size: 220% auto;
-  background-position: 140% center;
+  background-position: 120% center;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -31,11 +31,7 @@
 
 @keyframes variable-proximity-shine {
   0% {
-    background-position: 140% center;
-  }
-
-  45% {
-    background-position: 140% center;
+    background-position: 120% center;
   }
 
   100% {

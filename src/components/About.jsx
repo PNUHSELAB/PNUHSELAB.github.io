@@ -2,26 +2,26 @@ import logo from '../assets/logo.png';
 
 const About = () => {
   return (
-    <section id="about" className="pt-36 pb-24 bg-white relative">
+    <section id="about" className="pt-28 md:pt-36 pb-20 md:pb-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto -mt-6 mb-8">
-          <div className="flex justify-center mb-5">
+        <div className="text-center max-w-3xl mx-auto -mt-2 md:-mt-6 mb-8">
+          <div className="flex justify-center mb-4 md:mb-5">
             <img
               src={logo}
               alt="HSE Lab Logo"
-              className="w-full max-w-[420px] md:max-w-[520px] h-auto object-contain"
+              className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[520px] h-auto object-contain"
             />
           </div>
           <h2 className="text-sm font-semibold text-hse-blue tracking-wide uppercase mb-2">About The Lab</h2>
-          <h3 className="mx-auto max-w-4xl whitespace-nowrap text-[2rem] md:text-4xl font-bold text-gray-900 mb-4">
+          <h3 className="mx-auto max-w-4xl text-[1.65rem] sm:text-[2rem] md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
             Welcome to The Human &amp; Safety Engineering Lab
           </h3>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-base md:text-lg text-gray-600 leading-relaxed">
             The Human &amp; Safety Engineering Lab at Pusan National University studies human capabilities and
             limitations so that workplaces, products, and systems can be designed to be safer, healthier, and more
             effective.
           </p>
-          <p className="mt-3 text-base md:text-lg text-gray-500 leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base md:text-lg text-gray-500 leading-relaxed">
             인간공학 연구실은 사용자 중심의 편리하고 안전한 제품 및
             <br />
             작업장 설계를 위한 솔루션을 제공하기 위해 연구를 수행합니다.
