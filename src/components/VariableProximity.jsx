@@ -42,6 +42,7 @@ const VariableProximity = forwardRef(function VariableProximity(
     containerRef,
     radius = 50,
     falloff = 'linear',
+    letterSpacingMap = {},
     className = '',
     onClick,
     style,
@@ -143,8 +144,9 @@ const VariableProximity = forwardRef(function VariableProximity(
     >
       {words.map((word, wordIndex) => (
         <span key={`${word}-${wordIndex}`} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-          {word.split('').map((letter) => {
+          {word.split('').map((letter, letterInWordIndex) => {
             const currentLetterIndex = letterIndex++;
+            const spacingKey = `${wordIndex}-${letterInWordIndex}`;
             return (
               <span
                 key={currentLetterIndex}
@@ -154,6 +156,7 @@ const VariableProximity = forwardRef(function VariableProximity(
                 style={{
                   display: 'inline-block',
                   fontVariationSettings: fromFontVariationSettings,
+                  marginRight: letterSpacingMap[spacingKey] ?? 0,
                 }}
                 aria-hidden="true"
               >

@@ -1,20 +1,44 @@
 import React from 'react';
-import { User, Mail } from 'lucide-react';
+import { User } from 'lucide-react';
+import sejungLeePhoto from '../assets/sejung-lee.jpg';
+import seulgiKimPhoto from '../assets/seulgi-kim.jpg';
+import inaJeongPhoto from '../assets/ina-jeong.jpg';
+import hanboZouPhoto from '../assets/hanbo-zou.jpg';
+import seonaJeongPhoto from '../assets/seona-jeong.jpg';
+import hyunjinLeePhoto from '../assets/hyunjin-lee.jpg';
+import siyoonParkPhoto from '../assets/siyoon-park.jpg';
+import joonsikYoonPhoto from '../assets/joonsik-yoon.jpg';
+import minseoKimPhoto from '../assets/minseo-kim.jpg';
 
 const Members = () => {
   const memberGroups = [
     {
       title: "Research Professor",
-      members: [] // Placeholder
+      members: [
+        {
+          name: "김슬기 (Seulgi Kim)",
+          interest: "생체역학 및 인터페이스",
+          img: seulgiKimPhoto
+        },
+        {
+          name: "이세정 (Sejung Lee)",
+          interest: "산업안전",
+          img: sejungLeePhoto
+        }
+      ]
     },
     {
       title: "Ph.D. Candidates and Students",
       members: [
         {
-          role: "Ph.D. Candidate",
-          name: "Jane Smith",
-          email: "jane@hselab.ac.kr",
-          img: "https://ui-avatars.com/api/?name=Jane+Smith&background=3182ce&color=fff&size=128"
+          name: "정인아 (Ina Jeong)",
+          interest: "자동차 인간공학, 인지공학",
+          img: inaJeongPhoto
+        },
+        {
+          name: "Hanbo Zou",
+          interest: "인체역학, 제품설계",
+          img: hanboZouPhoto
         }
       ]
     },
@@ -22,10 +46,9 @@ const Members = () => {
       title: "M.S. Students",
       members: [
         {
-          role: "M.S. Student",
-          name: "Alex Johnson",
-          email: "alex@hselab.ac.kr",
-          img: "https://ui-avatars.com/api/?name=Alex+Johnson&background=2d3748&color=fff&size=128"
+          name: "정선아 (Seona Jeong)",
+          interest: "LLM, Ontology",
+          img: seonaJeongPhoto
         }
       ]
     },
@@ -33,16 +56,97 @@ const Members = () => {
       title: "Undergraduate Students",
       members: [
         {
-          role: "Undergraduate Researcher",
-          name: "Sam Lee",
-          email: "sam@hselab.ac.kr",
-          img: "https://ui-avatars.com/api/?name=Sam+Lee&background=cbd5e0&color=2d3748&size=128"
+          name: "김민서 (Minseo Kim)",
+          interest: "인간공학",
+          img: minseoKimPhoto
+        },
+        {
+          name: "이현진 (Hyunjin Lee)",
+          interest: "인간공학",
+          img: hyunjinLeePhoto
+        },
+        {
+          name: "박시윤 (Siyoon Park)",
+          interest: "인간공학",
+          img: siyoonParkPhoto
+        },
+        {
+          name: "윤준식 (Joonsik Yoon)",
+          interest: "인간공학",
+          img: joonsikYoonPhoto
         }
       ]
     },
     {
       title: "Alumni",
-      members: [] // Placeholder
+      members: [
+        {
+          name: "이*석 (*seok Lee)",
+          degree: "석사과정 졸업",
+          field: "산업디자인, 재활 및 인체공학",
+          email: "ilseoklee@pusan.ac.kr"
+        },
+        {
+          name: "강*현 (*Hyeon Kang)",
+          degree: "석사과정 졸업",
+          field: "Physical ergonomics, Cognitive-Physical Interaction",
+          email: "shkang@iastate.edu"
+        },
+        {
+          name: "남*경 (*kyung Nam)",
+          degree: "석사과정 졸업",
+          field: "안전보건관리, 감성공학",
+          email: "yknam@naver.com"
+        },
+        {
+          name: "최*원 (*won Choi)",
+          degree: "석사과정 졸업",
+          field: "Biomechanics, Ergonomic Design and Evaluation",
+          email: "jiwonchoi@vt.edu"
+        },
+        {
+          name: "김*영 (*young Kim)",
+          degree: "석사과정 졸업",
+          field: "안전보건관리",
+          email: "khy6444@pusan.ac.kr"
+        },
+        {
+          name: "김*환 (*Hwan Kim)",
+          degree: "석사과정 졸업",
+          field: "안전보건관리",
+          email: "skumcyd@pusan.ac.kr"
+        },
+        {
+          name: "이*민 (*min Lee)",
+          degree: "석사과정 졸업",
+          field: "인체역학, 인지공학, 제품설계",
+          email: "jeongmin1ee@pusan.ac.kr"
+        },
+        {
+          name: "*na Gyagri",
+          degree: "석사과정 졸업",
+          field: "인체공학, 산업안전, 경영",
+          email: "minagyagri@gmail.com"
+        },
+        {
+          name: "최*민 (*min Choi)",
+          degree: "석사과정 졸업",
+          field: "인체공학, 제품설계",
+          email: "cscsm91@naver.com"
+        },
+        {
+          name: "이*나 (*na Lee)",
+          degree: "석사과정 졸업",
+          field: "인간공학, 산업안전 및 보건 분야",
+          email: ""
+        },
+        {
+          name: "김*기 (*gi Kim)",
+          degree: "석박통합과정 졸업",
+          field: "생체역학 및 인터페이스",
+          email: "seulgikim@pusan.ac.kr"
+        }
+      ]
     }
   ];
 
@@ -69,24 +173,43 @@ const Members = () => {
 
               {/* Members Grid */}
               {group.members.length > 0 ? (
+                group.title === "Alumni" ? (
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 relative z-10">
+                    {group.members.map((member, idx) => (
+                      <article key={idx} className="rounded-[24px] border border-gray-100 bg-gray-50/70 p-6 md:p-7 transition-all duration-300 hover:border-slate-200 hover:bg-white hover:shadow-md">
+                        <h4 className="text-2xl font-bold text-gray-900">{member.name}</h4>
+                        <div className="mt-5 grid grid-cols-1 gap-3 text-sm leading-relaxed text-gray-700">
+                          <p><span className="font-semibold text-gray-900">졸업 학위 :</span> {member.degree}</p>
+                          <p><span className="font-semibold text-gray-900">연구분야 :</span> {member.field}</p>
+                          <p><span className="font-semibold text-gray-900">이메일 :</span> {member.email || "-"}</p>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 relative z-10">
                   {group.members.map((member, idx) => (
-                    <div key={idx} className="bg-gray-50/80 rounded-2xl overflow-hidden hover:shadow-lg hover:bg-white border border-gray-100 transition-all duration-300 group/card">
-                      <div className="aspect-w-1 aspect-h-1 bg-gray-200 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-hse-blue/10 group-hover/card:bg-transparent transition-colors duration-500 z-10"></div>
-                        <img src={member.img} alt={member.name} className="w-full h-56 object-cover group-hover/card:scale-105 transition-transform duration-500" />
+                    <article key={idx} className="overflow-hidden rounded-[28px] border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group/card">
+                      <div className="relative flex h-[24rem] items-end justify-center overflow-hidden bg-white">
+                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900/8 to-transparent opacity-70 transition-opacity duration-500 group-hover/card:opacity-30"></div>
+                        <img
+                          src={member.img}
+                          alt={member.name}
+                          className="h-full w-full object-contain object-center px-4 pt-6 transition-transform duration-700 group-hover/card:scale-[1.02]"
+                        />
                       </div>
-                      <div className="p-6 text-center">
-                        <h4 className="text-xl font-bold text-gray-900 mb-1 group-hover/card:text-hse-blue transition-colors">{member.name}</h4>
-                        <p className="text-sm font-semibold text-hse-green mb-4">{member.role}</p>
-                        <a href={`mailto:${member.email}`} className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-white border border-gray-200 text-gray-600 hover:text-hse-blue hover:border-blue-200 hover:bg-blue-50 text-sm font-medium transition-all shadow-sm">
-                          <Mail size={16} />
-                          {member.email}
-                        </a>
+                      <div className="p-6 md:p-7">
+                        <h4 className={`font-bold text-gray-900 transition-colors group-hover/card:text-hse-blue ${group.title === "Undergraduate Students" ? "text-xl" : "text-2xl"}`}>
+                          {member.name}
+                        </h4>
+                        {member.interest && (
+                          <p className="mt-3 text-sm leading-relaxed text-gray-600">{member.interest}</p>
+                        )}
                       </div>
-                    </div>
+                    </article>
                   ))}
                 </div>
+                )
               ) : (
                 <div className="py-12 text-center relative z-10 bg-gray-50/50 rounded-xl border border-dashed border-gray-200">
                   <p className="text-gray-400 font-medium">No members listed currently in this category.</p>

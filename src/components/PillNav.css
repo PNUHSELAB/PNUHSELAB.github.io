@@ -100,18 +100,6 @@
   opacity: 0;
 }
 
-.pill.is-active::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-  background: var(--base, #fff);
-  border-radius: 999px;
-}
-
 @media (max-width: 1279px) {
   .pill-nav-container {
     display: none;

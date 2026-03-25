@@ -1,5 +1,6 @@
 import React from 'react';
 import { User, Phone, Printer, Mail, MapPin, Briefcase, GraduationCap, Award, CheckCircle } from 'lucide-react';
+import professorPhoto from '../assets/professor.png';
 
 const Professor = () => {
   const experiences = [
@@ -60,9 +61,13 @@ const Professor = () => {
         {/* Profile Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-12 flex flex-col md:flex-row transition-all hover:shadow-md">
           {/* Photo Placeholder */}
-          <div className="w-full md:w-1/3 bg-gray-100/80 min-h-[400px] flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 relative group overflow-hidden">
-            <div className="absolute inset-0 bg-hse-blue/5 group-hover:bg-hse-blue/10 transition-colors"></div>
-            <div className="text-gray-400 flex flex-col items-center relative z-10 transition-transform group-hover:scale-110 duration-300">
+          <div className="w-full md:w-1/3 bg-white min-h-[400px] flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 relative group overflow-hidden">
+            <img
+              src={professorPhoto}
+              alt="Professor Jin Sangeun"
+              className="absolute inset-0 z-10 h-full w-full object-contain object-center p-6"
+            />
+            <div className="hidden text-gray-400 flex-col items-center relative z-10 transition-transform group-hover:scale-110 duration-300">
               <User size={64} className="mb-4 text-gray-300" strokeWidth={1.5} />
               <span className="font-medium text-sm tracking-wide">프로필 사진 (업데이트 예정)</span>
             </div>
@@ -114,15 +119,15 @@ const Professor = () => {
               <Briefcase className="w-6 h-6 text-hse-blue" />
               Education & Experience
             </h3>
-            <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
+            <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
               {experiences.map((exp, index) => (
-                <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                <div key={index} className="relative flex items-center gap-5 group is-active">
                   {/* Icon */}
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-gray-100 text-gray-500 group-hover:bg-hse-blue group-hover:text-white transition-colors duration-300 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 mx-auto md:mx-0 ml-0 md:ml-auto">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-gray-100 text-gray-500 group-hover:bg-hse-blue group-hover:text-white transition-colors duration-300 shadow shrink-0 z-10">
                     {exp.icon}
                   </div>
                   {/* Card */}
-                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-5 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex-1 p-5 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
                     <div className="text-xs text-hse-blue font-bold mb-2 uppercase tracking-wide bg-blue-50 w-fit px-2 py-1 rounded inline-block">{exp.period}</div>
                     <div className="font-bold text-gray-900 text-base mb-2">{exp.title}</div>
                     <div className="text-gray-500 text-sm leading-relaxed">{exp.description}</div>
