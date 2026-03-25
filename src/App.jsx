@@ -6,9 +6,16 @@ import Footer from './components/Footer';
 
 const About = lazy(() => import('./components/About'));
 const ResearchAreas = lazy(() => import('./components/ResearchAreas'));
+const Projects = lazy(() => import('./components/Projects'));
+const Patents = lazy(() => import('./components/Patents'));
+const ResearchFacilities = lazy(() => import('./components/ResearchFacilities'));
 const Members = lazy(() => import('./components/Members'));
 const Professor = lazy(() => import('./components/Professor'));
 const Publication = lazy(() => import('./components/Publication'));
+const InternationalConferences = lazy(() => import('./components/InternationalConferences'));
+const DomesticJournals = lazy(() => import('./components/DomesticJournals'));
+const DomesticConferences = lazy(() => import('./components/DomesticConferences'));
+const Books = lazy(() => import('./components/Books'));
 const News = lazy(() => import('./components/News'));
 const Photo = lazy(() => import('./components/Photo'));
 
@@ -38,9 +45,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<main><About /></main>} />
             <Route path="/research" element={<main><ResearchAreas /></main>} />
+            <Route path="/research/projects" element={<main><Projects /></main>} />
+            <Route path="/research/patents" element={<main><Patents /></main>} />
+            <Route path="/research/facilities" element={<main><ResearchFacilities /></main>} />
             <Route path="/professor" element={<main><Professor /></main>} />
             <Route path="/people" element={<main><Members /></main>} />
             <Route path="/publication" element={<main><Publication /></main>} />
+            <Route path="/publication/international-conferences" element={<main><InternationalConferences /></main>} />
+            <Route path="/publication/domestic-journals" element={<main><DomesticJournals /></main>} />
+            <Route path="/publication/domestic-conferences" element={<main><DomesticConferences /></main>} />
+            <Route path="/publication/books" element={<main><Books /></main>} />
             <Route path="/news" element={<main><News /></main>} />
             <Route path="/photo" element={<main><Photo /></main>} />
           </Routes>

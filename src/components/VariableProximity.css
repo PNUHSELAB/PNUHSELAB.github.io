@@ -4,6 +4,45 @@
   font-family: 'Roboto Flex', sans-serif;
 }
 
+.variable-proximity-title {
+  display: inline-block;
+  max-width: 100%;
+  color: rgba(255, 255, 255, 0.14);
+  background-image: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.12) 34%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.12) 66%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 220% auto;
+  background-position: 140% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: variable-proximity-shine 7.8s linear infinite;
+  transition:
+    font-size 380ms ease-out,
+    letter-spacing 380ms ease-out,
+    transform 380ms ease-out;
+  will-change: font-size, transform;
+}
+
+@keyframes variable-proximity-shine {
+  0% {
+    background-position: 140% center;
+  }
+
+  45% {
+    background-position: 140% center;
+  }
+
+  100% {
+    background-position: -40% center;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

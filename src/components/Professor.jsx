@@ -159,27 +159,49 @@ const Professor = () => {
 
         {/* Professional Activities */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-12 mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-6 border-b border-gray-100 gap-4">
-            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-              <Award className="w-6 h-6 text-hse-blue" />
-              Professional Experience and Activities
-            </h3>
+          <div className="flex flex-col gap-5 mb-8 pb-6 border-b border-gray-100 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                <Award className="w-6 h-6 text-hse-blue" />
+                Professional Experience and Activities
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-gray-500">
+                주요 외부 위원회, 자문, 평가 활동을 기간과 기관 기준으로 빠르게 확인할 수 있도록 정리했습니다.
+              </p>
+            </div>
             <span className="bg-hse-blue/10 text-hse-blue px-4 py-1.5 rounded-full text-sm font-bold tracking-wide whitespace-nowrap">
               {activities.length} Activities
             </span>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {activities.map((activity, index) => (
-              <div key={index} className="flex items-start gap-4 p-4 hover:bg-gray-50 rounded-xl transition-all border border-transparent hover:border-gray-100 group">
-                <div className="uppercase tracking-wider font-bold text-xs text-hse-blue bg-blue-50 group-hover:bg-nse-blue group-hover:text-white px-2 py-1.5 rounded w-[100px] shrink-0 text-center flex flex-col justify-center border border-blue-100/50 shadow-sm transition-colors">
-                  {activity.period}
+              <article
+                key={index}
+                className="group rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-slate-50/70 p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-hse-blue/20 hover:shadow-md"
+              >
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <div className="flex items-center sm:block sm:w-[118px] sm:shrink-0">
+                    <span className="inline-flex items-center justify-center rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-bold tracking-[0.14em] text-hse-blue shadow-sm sm:min-h-[44px] sm:w-full sm:rounded-2xl">
+                      {activity.period}
+                    </span>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-400">
+                      Organization
+                    </div>
+                    <div className="mt-1 text-base font-bold leading-tight text-gray-900 group-hover:text-hse-blue transition-colors">
+                      {activity.org}
+                    </div>
+                    <div className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-gray-400">
+                      Role
+                    </div>
+                    <div className="mt-1 text-sm leading-relaxed text-gray-600">
+                      {activity.role}
+                    </div>
+                  </div>
                 </div>
-                <div className="pt-0.5">
-                  <div className="text-sm font-bold text-gray-900 mb-1 leading-tight group-hover:text-hse-blue transition-colors">[{activity.org}]</div>
-                  <div className="text-sm text-gray-600 leading-snug">{activity.role}</div>
-                </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>

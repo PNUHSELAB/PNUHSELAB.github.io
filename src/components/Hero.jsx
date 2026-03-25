@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Aurora from './Aurora';
-import HeroCharacter from './HeroCharacter';
 import VariableProximity from './VariableProximity';
 
 const focusAreas = ['Safety Engineering', 'Cognitive Engineering', 'Biomechanics', 'HMI'];
@@ -26,27 +25,23 @@ const Hero = () => {
 
       <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_35%),radial-gradient(circle_at_50%_55%,rgba(34,197,94,0.16),transparent_32%),linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.7)_55%,rgba(0,0,0,0.94))]" />
 
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[2] mt-16 lg:mt-0">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[2] -mt-4 lg:-mt-10">
         <Link
           to="/about"
           aria-label="Go to About page"
-          className="pointer-events-auto inline-flex items-center justify-center cursor-pointer"
+          className="pointer-events-auto inline-flex max-w-[98vw] items-center justify-center cursor-pointer px-3 sm:px-5"
         >
           <VariableProximity
             label="HSE LAB"
-            className="text-[18vw] font-black text-white/8 tracking-tighter whitespace-nowrap leading-none transition-all duration-1000"
-            fromFontVariationSettings="'wght' 700, 'opsz' 12"
+            className="variable-proximity-title text-[clamp(6.75rem,20.5vw,20rem)] font-black tracking-[-0.05em] whitespace-nowrap leading-none"
+            fromFontVariationSettings="'wght' 560, 'opsz' 14"
             toFontVariationSettings="'wght' 1000, 'opsz' 40"
             containerRef={heroRef}
-            radius={180}
+            radius={100}
             falloff="linear"
             letterSpacingMap={{ '1-0': '0.09em' }}
           />
         </Link>
-      </div>
-
-      <div className="pointer-events-auto absolute bottom-4 right-2 z-[25] h-[240px] w-[190px] sm:bottom-6 sm:right-4 sm:h-[300px] sm:w-[230px] md:bottom-8 md:right-8 md:h-[360px] md:w-[280px] lg:bottom-10 lg:right-10 lg:h-[430px] lg:w-[330px]">
-        <HeroCharacter />
       </div>
 
       <div className="absolute inset-0 z-20 pointer-events-none p-6 pb-12 md:p-12 lg:p-16 flex flex-col justify-between">

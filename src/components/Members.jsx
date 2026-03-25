@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { User } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import sejungLeePhoto from '../assets/sejung-lee.jpg';
 import seulgiKimPhoto from '../assets/seulgi-kim.jpg';
 import inaJeongPhoto from '../assets/ina-jeong.jpg';
@@ -11,8 +12,10 @@ import joonsikYoonPhoto from '../assets/joonsik-yoon.jpg';
 import minseoKimPhoto from '../assets/minseo-kim.jpg';
 
 const Members = () => {
+  const location = useLocation();
   const memberGroups = [
     {
+      id: 'research-professor',
       title: "Research Professor",
       members: [
         {
@@ -28,6 +31,7 @@ const Members = () => {
       ]
     },
     {
+      id: 'phd-candidates-and-students',
       title: "Ph.D. Candidates and Students",
       members: [
         {
@@ -43,6 +47,7 @@ const Members = () => {
       ]
     },
     {
+      id: 'ms-students',
       title: "M.S. Students",
       members: [
         {
@@ -53,6 +58,7 @@ const Members = () => {
       ]
     },
     {
+      id: 'undergraduate-students',
       title: "Undergraduate Students",
       members: [
         {
@@ -78,6 +84,7 @@ const Members = () => {
       ]
     },
     {
+      id: 'alumni',
       title: "Alumni",
       members: [
         {
@@ -150,6 +157,24 @@ const Members = () => {
     }
   ];
 
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const element = document.getElementById(location.hash.replace('#', ''));
+    if (!element) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [location.hash]);
+
   return (
     <div className="pt-52 pb-24 min-h-screen bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,7 +187,11 @@ const Members = () => {
 
         <div className="space-y-20">
           {memberGroups.map((group, groupIdx) => (
-            <div key={groupIdx} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-10 relative overflow-hidden">
+            <div
+              id={group.id}
+              key={groupIdx}
+              className="scroll-mt-36 bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-10 relative overflow-hidden"
+            >
               {/* Category Header */}
               <div className="flex items-center gap-4 mb-10 border-b border-gray-100 pb-6 relative z-10">
                 <div className="w-12 h-12 rounded-xl bg-hse-blue/10 flex items-center justify-center text-hse-blue flex-shrink-0">

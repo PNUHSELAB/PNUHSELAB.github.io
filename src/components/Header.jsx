@@ -2,8 +2,8 @@ import { useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/연구실_로고_흰색-removebg-preview.png';
 import pnuLogo from '../assets/signature04.png';
-import PillNav from './PillNav';
 import StaggeredMenu from './StaggeredMenu';
+import './HeaderNav.css';
 
 const navLinks = [
   { name: 'About', href: '/about' },
@@ -15,6 +15,29 @@ const navLinks = [
   { name: 'Photo', href: '/photo' },
 ];
 
+const researchSubLinks = [
+  { name: 'Research Areas', href: '/research' },
+  { name: 'Projects', href: '/research/projects' },
+  { name: 'Patents', href: '/research/patents' },
+  { name: 'Research Facilities', href: '/research/facilities' },
+];
+
+const peopleSubLinks = [
+  { name: 'Research Professor', href: '/people#research-professor' },
+  { name: 'Ph.D. Candidates', href: '/people#phd-candidates-and-students' },
+  { name: 'M.S. Students', href: '/people#ms-students' },
+  { name: 'Undergraduate Students', href: '/people#undergraduate-students' },
+  { name: 'Alumni', href: '/people#alumni' },
+];
+
+const publicationSubLinks = [
+  { name: 'International Journals', href: '/publication' },
+  { name: 'International Conferences', href: '/publication/international-conferences' },
+  { name: 'Domestic Journals', href: '/publication/domestic-journals' },
+  { name: 'Domestic Conferences', href: '/publication/domestic-conferences' },
+  { name: 'Books', href: '/publication/books' },
+];
+
 const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -22,16 +45,28 @@ const Header = () => {
 
   const menuItems = useMemo(
     () =>
-      navLinks.map((link) => ({
-        label: link.name,
-        ariaLabel: `Go to ${link.name.toLowerCase()} page`,
-        link: link.href,
-      })),
-    []
-  );
-
-  const desktopItems = useMemo(
-    () => navLinks.map((link) => ({ label: link.name, href: link.href })),
+      [
+        ...navLinks.map((link) => ({
+          label: link.name,
+          ariaLabel: `Go to ${link.name.toLowerCase()} page`,
+          link: link.href,
+        })),
+        ...researchSubLinks.slice(1).map((link) => ({
+          label: link.name,
+          ariaLabel: `Go to ${link.name.toLowerCase()} page`,
+          link: link.href,
+        })),
+        ...peopleSubLinks.map((link) => ({
+          label: link.name,
+          ariaLabel: `Go to ${link.name.toLowerCase()} section`,
+          link: link.href,
+        })),
+        ...publicationSubLinks.slice(1).map((link) => ({
+          label: link.name,
+          ariaLabel: `Go to ${link.name.toLowerCase()} page`,
+          link: link.href,
+        })),
+      ],
     []
   );
 
@@ -68,19 +103,104 @@ const Header = () => {
           </div>
 
           <div className="hidden xl:flex flex-1 min-w-0 items-center justify-end">
-            <PillNav
-              items={desktopItems}
-              activeHref={location.pathname}
-              ease="power2.easeOut"
-              baseColor={useDarkHeader ? '#0f172a' : '#ffffff'}
-              pillColor={useDarkHeader ? 'rgba(15,23,42,0.06)' : 'rgba(255,255,255,0.10)'}
-              hoveredPillTextColor={useDarkHeader ? '#ffffff' : '#0b1120'}
-              pillTextColor={useDarkHeader ? '#0f172a' : '#f8fafc'}
-              shellColor={useDarkHeader ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.10)'}
-              shellBorderColor={useDarkHeader ? 'rgba(148,163,184,0.28)' : 'rgba(255,255,255,0.18)'}
-              shellShadow={useDarkHeader ? '0 16px 34px rgba(15,23,42,0.08)' : '0 18px 34px rgba(0,0,0,0.12)'}
-              initialLoadAnimation={false}
-            />
+            <nav
+              className={`header-nav-shell flex items-center rounded-full border p-1.5 shadow-[0_16px_34px_rgba(15,23,42,0.08)] backdrop-blur-xl ${
+                useDarkHeader
+                  ? 'border-slate-200/90 bg-white/90'
+                  : 'border-white/15 bg-white/10 shadow-[0_18px_34px_rgba(0,0,0,0.12)]'
+              }`}
+              aria-label="Primary"
+              style={{
+                '--header-nav-base': useDarkHeader ? '#0f172a' : '#ffffff',
+                '--header-nav-hover-bg': useDarkHeader ? '#0f172a' : '#ffffff',
+                '--header-nav-hover-text': useDarkHeader ? '#ffffff' : '#0b1120',
+              }}
+            >
+              {navLinks.map((link) => {
+                const isResearch = link.name === 'Research';
+                const isPeople = link.name === 'People';
+                const isPublication = link.name === 'Publication';
+                const subLinks = isResearch
+                  ? researchSubLinks
+                  : isPeople
+                    ? peopleSubLinks
+                    : isPublication
+                      ? publicationSubLinks
+                      : null;
+                const isActive = isResearch
+                  ? location.pathname === '/research' || location.pathname.startsWith('/research/')
+                  : isPeople
+                    ? location.pathname === '/people'
+                    : isPublication
+                      ? location.pathname === '/publication' || location.pathname.startsWith('/publication/')
+                    : location.pathname === link.href;
+                const itemClasses = `header-nav-item relative inline-flex items-center justify-center rounded-full px-4 py-3 text-[0.82rem] font-semibold uppercase tracking-[0.08em] transition-all duration-200 ${
+                  useDarkHeader
+                    ? isActive
+                      ? 'bg-slate-900 text-white'
+                      : 'text-slate-900 hover:bg-slate-100 hover:text-hse-blue'
+                    : isActive
+                      ? 'bg-white text-slate-900'
+                      : 'text-slate-50 hover:bg-white/12 hover:text-white'
+                }`;
+
+                if (subLinks) {
+                  return (
+                    <div key={link.href} className="group relative">
+                      <Link to={link.href} className={itemClasses}>
+                        {!isActive && <span className="header-nav-hover-circle" aria-hidden="true" />}
+                        <span className="header-nav-label-stack">
+                          <span className="header-nav-label">{link.name}</span>
+                          {!isActive && (
+                            <span className="header-nav-label-hover" aria-hidden="true">
+                              {link.name}
+                            </span>
+                          )}
+                        </span>
+                      </Link>
+                      <div className="pointer-events-none absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+                        <div
+                          className={`rounded-[24px] border p-2 shadow-[0_24px_50px_rgba(15,23,42,0.14)] backdrop-blur-xl ${
+                            useDarkHeader
+                              ? 'border-slate-200 bg-white/96'
+                              : 'border-white/15 bg-slate-950/78'
+                          }`}
+                        >
+                          {subLinks.map((subLink) => (
+                            <Link
+                              key={subLink.href}
+                              to={subLink.href}
+                              className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition-colors ${
+                                useDarkHeader
+                                  ? 'text-slate-700 hover:bg-slate-100 hover:text-hse-blue'
+                                  : 'text-slate-100 hover:bg-white/10 hover:text-white'
+                              }`}
+                            >
+                              <span>{subLink.name}</span>
+                              <span className="text-xs opacity-60">+</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link key={link.href} to={link.href} className={itemClasses}>
+                    {!isActive && <span className="header-nav-hover-circle" aria-hidden="true" />}
+                    <span className="header-nav-label-stack">
+                      <span className="header-nav-label">{link.name}</span>
+                      {!isActive && (
+                        <span className="header-nav-label-hover" aria-hidden="true">
+                          {link.name}
+                        </span>
+                      )}
+                    </span>
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
 
           <div className="xl:hidden flex items-center shrink-0">
