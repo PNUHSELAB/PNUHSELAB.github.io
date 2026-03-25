@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { ContactShadows, Environment, OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
-const MODEL_URL = '/low_poly_hero_man.glb';
+const MODEL_URL = '/the_human_spinal_column.glb';
 
 const CharacterModel = () => {
   const { scene } = useGLTF(MODEL_URL);
