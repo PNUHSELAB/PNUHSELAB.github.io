@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HSE Lab</title>
+    <script>
+      (function () {
+        const pathname = window.location.pathname || '/';
+        const search = window.location.search ? window.location.search.slice(1).replace(/&/g, '~and~') : '';
+        const hash = window.location.hash ? window.location.hash.slice(1) : '';
+        const query = `?p=${pathname}${search ? `%3F${search}` : ''}${hash ? `&h=${hash}` : ''}`;
+        window.location.replace(`/${query}`);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

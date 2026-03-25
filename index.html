@@ -5,6 +5,20 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HSE Lab</title>
+    <script>
+      (function () {
+        const search = window.location.search;
+        if (!search.startsWith('?p=')) {
+          return;
+        }
+
+        const params = new URLSearchParams(search);
+        const path = (params.get('p') || '/').replace(/~and~/g, '&');
+        const hash = params.get('h') ? `#${params.get('h')}` : window.location.hash;
+        const nextUrl = `${path}${hash}`;
+        window.history.replaceState(null, '', nextUrl);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
