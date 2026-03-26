@@ -45,6 +45,17 @@ const Header = () => {
   const isHomePage = location.pathname === '/';
   const useDarkHeader = !isHomePage;
 
+  const handleLogoClick = () => {
+    if (!isHomePage) {
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const menuItems = useMemo(
     () =>
       navLinks.map((link) => {
@@ -91,7 +102,11 @@ const Header = () => {
       <div className="w-full max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12">
         <div className="flex items-center justify-between gap-3 md:gap-6 xl:gap-10">
           <div className="flex items-center shrink-0">
-            <Link to="/" className="flex items-center gap-2.5 sm:gap-4 md:gap-8 max-w-full">
+            <Link
+              to="/"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2.5 sm:gap-4 md:gap-8 max-w-full"
+            >
               <img
                 src={pnuLogo}
                 alt="PNU Logo"
