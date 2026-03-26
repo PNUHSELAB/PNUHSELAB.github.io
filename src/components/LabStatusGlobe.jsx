@@ -39,32 +39,35 @@ const getKoreaTime = () => {
     hour: Number(parts.hour),
     minute: Number(parts.minute),
     second: Number(parts.second),
+    weekday: Number(
+      new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Seoul',
+        weekday: 'short',
+      })
+        .format(now)
+        .replace('Sun', '0')
+        .replace('Mon', '1')
+        .replace('Tue', '2')
+        .replace('Wed', '3')
+        .replace('Thu', '4')
+        .replace('Fri', '5')
+        .replace('Sat', '6')
+    ),
     label: `${parts.year}.${parts.month}.${parts.day} ${parts.hour}:${parts.minute}:${parts.second} KST`,
+    timestamp: now.getTime(),
   };
 };
 
-const getLabStatus = ({ hour, minute }) => {
+const getLabStatus = ({ hour, minute, weekday }) => {
+  if (weekday === 0 || weekday === 6) {
+    return false;
+  }
+
   const currentMinutes = hour * 60 + minute;
   const startMinutes = STATUS_START.hour * 60 + STATUS_START.minute;
   const endMinutes = STATUS_END.hour * 60 + STATUS_END.minute;
 
   return currentMinutes >= startMinutes && currentMinutes < endMinutes;
-};
-
-const getNextStatusChangeLabel = ({ hour, minute }) => {
-  const currentMinutes = hour * 60 + minute;
-  const startMinutes = STATUS_START.hour * 60 + STATUS_START.minute;
-  const endMinutes = STATUS_END.hour * 60 + STATUS_END.minute;
-
-  if (currentMinutes < startMinutes) {
-    return 'Next change at 08:30 KST';
-  }
-
-  if (currentMinutes < endMinutes) {
-    return 'Next change at 18:00 KST';
-  }
-
-  return 'Next change at 08:30 KST tomorrow';
 };
 
 const latLonToVector3 = (lat, lon, radius) => {
@@ -76,6 +79,28 @@ const latLonToVector3 = (lat, lon, radius) => {
     radius * Math.cos(phi),
     radius * Math.sin(phi) * Math.sin(theta)
   );
+};
+
+const getDayOfYear = (date) => {
+  const start = Date.UTC(date.getUTCFullYear(), 0, 0);
+  const current = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  return Math.floor((current - start) / 86400000);
+};
+
+const getSunCoordinates = (timestamp) => {
+  const date = new Date(timestamp);
+  const utcHours =
+    date.getUTCHours() + date.getUTCMinutes() / 60 + date.getUTCSeconds() / 3600;
+  const dayOfYear = getDayOfYear(date);
+
+  // Approximate solar declination and subsolar longitude for a live day/night split.
+  const solarLatitude = 23.44 * Math.sin(((2 * Math.PI) / 365) * (dayOfYear - 81));
+  const solarLongitude = 180 - utcHours * 15;
+
+  return {
+    lat: solarLatitude,
+    lon: solarLongitude,
+  };
 };
 
 const EarthModel = ({ targetRadius = 2.15 }) => {
@@ -161,30 +186,46 @@ const PinModel = ({ isLabOpen, targetHeight = 0.36 }) => {
   );
 };
 
-const GlobeScene = ({ isLabOpen }) => {
+const GlobeScene = ({ isLabOpen, timestamp }) => {
   const globeRadius = 2.15;
   const markerPosition = useMemo(
     () => latLonToVector3(LAB_LOCATION.lat, LAB_LOCATION.lon, globeRadius - 0.0),
     [globeRadius]
   );
   const markerNormal = useMemo(() => markerPosition.clone().normalize(), [markerPosition]);
+  const sunDirectionLocal = useMemo(() => {
+    const { lat, lon } = getSunCoordinates(timestamp);
+    return latLonToVector3(lat, lon, 1).normalize();
+  }, [timestamp]);
   const globeRef = useRef(null);
   const markerRef = useRef(null);
+  const sunLightRef = useRef(null);
+  const fillLightRef = useRef(null);
 
   useFrame((state) => {
     if (globeRef.current) {
       globeRef.current.rotation.y = state.clock.elapsedTime * 0.12 - 4.58;
       globeRef.current.rotation.x = THREE.MathUtils.lerp(globeRef.current.rotation.x, 0.28, 0.03);
     }
+
+    if (globeRef.current && sunLightRef.current && fillLightRef.current) {
+      const worldSunDirection = sunDirectionLocal
+        .clone()
+        .applyQuaternion(globeRef.current.quaternion)
+        .normalize();
+
+      sunLightRef.current.position.copy(worldSunDirection.clone().multiplyScalar(8));
+      fillLightRef.current.position.copy(worldSunDirection.clone().multiplyScalar(-5));
+    }
   });
 
   return (
     <>
       <Stars radius={80} depth={30} count={2500} factor={3} saturation={0} fade speed={0.8} />
-      <ambientLight intensity={1.15} />
-      <directionalLight position={[4, 3, 6]} intensity={2.5} color="#ffffff" />
-      <pointLight position={[-6, -3, 2]} intensity={3.2} color="#6cff7f" />
-      <pointLight position={[6, 2, -2]} intensity={2.4} color="#7dd3fc" />
+      <ambientLight intensity={0.16} color="#5d6882" />
+      <directionalLight ref={sunLightRef} intensity={3.35} color="#fff4c2" />
+      <pointLight ref={fillLightRef} intensity={0.18} color="#4d67d8" />
+      <pointLight position={[0, 4, -6]} intensity={0.12} color="#76cfff" />
 
       <group ref={globeRef}>
         <Suspense
@@ -230,7 +271,7 @@ const GlobeScene = ({ isLabOpen }) => {
               <p className="mt-1 text-[9px] font-semibold leading-tight text-white">{LAB_LOCATION.name}</p>
               <div className="mt-1.5 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/6 px-2 py-0.5 text-[7px] font-semibold">
                 <span className={`h-1.5 w-1.5 rounded-full ${isLabOpen ? 'bg-emerald-400 shadow-[0_0_10px_rgba(74,222,128,0.75)]' : 'bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.7)]'}`} />
-                {isLabOpen ? 'Lab On' : 'Lab Off'}
+                {isLabOpen ? 'Lab Open' : 'Lab Closed'}
               </div>
             </div>
           </Html>
@@ -268,7 +309,6 @@ const LabStatusGlobe = () => {
   }, []);
 
   const isLabOpen = useMemo(() => getLabStatus(koreaTime), [koreaTime]);
-  const nextStatusChange = useMemo(() => getNextStatusChangeLabel(koreaTime), [koreaTime]);
 
   return (
     <section
@@ -282,15 +322,6 @@ const LabStatusGlobe = () => {
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-300/90">
             Live Lab Status
           </p>
-          <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Laboratory On, Off
-            <br />
-            by Korea Time
-          </h2>
-          <p className="mt-5 text-base leading-8 text-slate-300 sm:text-lg">
-            The status changes automatically based on Korea Standard Time. The lab is marked as on from 08:30 to
-            18:00 and off outside those hours.
-          </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[28px] border border-white/10 bg-white/6 p-5 backdrop-blur-xl">
@@ -300,11 +331,12 @@ const LabStatusGlobe = () => {
             </div>
             <div className={`rounded-[28px] border p-5 backdrop-blur-xl ${isLabOpen ? 'border-emerald-400/35 bg-emerald-400/10' : 'border-orange-400/30 bg-orange-400/10'}`}>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">Today&apos;s Status</p>
-              <div className="mt-3 flex items-center gap-3">
+              <div className="mt-3 flex items-center justify-center gap-3 text-center">
                 <span className={`inline-flex h-3.5 w-3.5 rounded-full ${isLabOpen ? 'bg-emerald-400 shadow-[0_0_18px_rgba(74,222,128,0.8)]' : 'bg-orange-400 shadow-[0_0_18px_rgba(251,146,60,0.7)]'}`} />
-                <p className="text-2xl font-bold text-white">{isLabOpen ? 'Laboratory On' : 'Laboratory Off'}</p>
+                <p className="text-center text-2xl font-bold text-white">
+                  {isLabOpen ? 'Laboratory Open' : 'Laboratory Closed'}
+                </p>
               </div>
-              <p className="mt-3 text-sm text-slate-300">{nextStatusChange}</p>
             </div>
           </div>
         </div>
@@ -314,7 +346,7 @@ const LabStatusGlobe = () => {
             Earth View
           </div>
           <Canvas camera={{ position: [0, 0.1, 8.4], fov: 30 }} dpr={[1, 1.8]}>
-            <GlobeScene isLabOpen={isLabOpen} />
+            <GlobeScene isLabOpen={isLabOpen} timestamp={koreaTime.timestamp} />
           </Canvas>
         </div>
       </div>

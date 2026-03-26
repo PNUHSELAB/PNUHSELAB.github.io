@@ -68,7 +68,6 @@ const Hero = () => {
       </div>
 
       <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_35%),radial-gradient(circle_at_50%_55%,rgba(34,197,94,0.16),transparent_32%),linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.7)_55%,rgba(0,0,0,0.94))]" />
-      <div className="absolute inset-x-0 bottom-0 z-[1] h-32 sm:h-40 md:h-48 bg-black" />
 
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[2] -mt-10 sm:-mt-8 lg:-mt-10">
         <Link

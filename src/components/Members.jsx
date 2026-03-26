@@ -31,6 +31,16 @@ const Members = () => {
       ]
     },
     {
+      id: 'administrative-staff',
+      title: "Administrative Staff",
+      members: [
+        {
+          name: "공서하",
+          interest: "Photo coming soon",
+        }
+      ]
+    },
+    {
       id: 'phd-candidates-and-students',
       title: "Ph.D. Candidates and Students",
       members: [
@@ -54,6 +64,16 @@ const Members = () => {
           name: "정선아 (Seona Jeong)",
           interest: "LLM, Ontology",
           img: seonaJeongPhoto
+        }
+      ]
+    },
+    {
+      id: 'research-staff',
+      title: "Researcher",
+      members: [
+        {
+          name: "박준수",
+          interest: "Photo coming soon",
         }
       ]
     },
@@ -221,11 +241,22 @@ const Members = () => {
                     <article key={idx} className="overflow-hidden rounded-[28px] border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group/card">
                       <div className="relative flex h-[24rem] items-end justify-center overflow-hidden bg-white">
                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900/8 to-transparent opacity-70 transition-opacity duration-500 group-hover/card:opacity-30"></div>
-                        <img
-                          src={member.img}
-                          alt={member.name}
-                          className="h-full w-full object-contain object-center px-4 pt-6 transition-transform duration-700 group-hover/card:scale-[1.02]"
-                        />
+                        {member.img ? (
+                          <img
+                            src={member.img}
+                            alt={member.name}
+                            className="h-full w-full object-contain object-center px-4 pt-6 transition-transform duration-700 group-hover/card:scale-[1.02]"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full flex-col items-center justify-center bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.08),transparent_42%),linear-gradient(180deg,#f8fafc_0%,#eef2f7_100%)] px-6 text-center">
+                            <div className="flex h-24 w-24 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 shadow-sm">
+                              <User size={40} strokeWidth={1.8} />
+                            </div>
+                            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                              Photo Placeholder
+                            </p>
+                          </div>
+                        )}
                       </div>
                       <div className="p-6 md:p-7">
                         <h4 className={`font-bold text-gray-900 transition-colors group-hover/card:text-hse-blue ${group.title === "Undergraduate Students" ? "text-xl" : "text-2xl"}`}>

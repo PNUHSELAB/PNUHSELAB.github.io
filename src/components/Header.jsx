@@ -24,8 +24,10 @@ const researchSubLinks = [
 
 const peopleSubLinks = [
   { name: 'Research Professor', href: '/people#research-professor' },
+  { name: 'Administrative Staff', href: '/people#administrative-staff' },
   { name: 'Ph.D. Candidates', href: '/people#phd-candidates-and-students' },
   { name: 'M.S. Students', href: '/people#ms-students' },
+  { name: 'Researcher', href: '/people#research-staff' },
   { name: 'Undergraduate Students', href: '/people#undergraduate-students' },
   { name: 'Alumni', href: '/people#alumni' },
 ];
