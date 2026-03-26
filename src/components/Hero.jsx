@@ -5,8 +5,52 @@ import VariableProximity from './VariableProximity';
 
 const focusAreas = ['Safety Engineering', 'Cognitive Engineering', 'Biomechanics', 'HMI'];
 
+const easeInOutCubic = (t) => {
+  if (t < 0.5) {
+    return 4 * t * t * t;
+  }
+
+  return 1 - Math.pow(-2 * t + 2, 3) / 2;
+};
+
 const Hero = () => {
   const heroRef = useRef(null);
+  const animationFrameRef = useRef(null);
+
+  const handleScrollToLabStatus = (event) => {
+    event.preventDefault();
+
+    const target = document.getElementById('lab-status');
+    if (!target) {
+      return;
+    }
+
+    if (animationFrameRef.current) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    const startY = window.scrollY;
+    const targetY = target.getBoundingClientRect().top + window.scrollY;
+    const distance = targetY - startY;
+    const duration = 1100;
+    const startTime = performance.now();
+
+    const step = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeInOutCubic(progress);
+
+      window.scrollTo(0, startY + distance * easedProgress);
+
+      if (progress < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(step);
+      } else {
+        animationFrameRef.current = null;
+      }
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(step);
+  };
 
   return (
     <section
@@ -24,6 +68,7 @@ const Hero = () => {
       </div>
 
       <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_35%),radial-gradient(circle_at_50%_55%,rgba(34,197,94,0.16),transparent_32%),linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.7)_55%,rgba(0,0,0,0.94))]" />
+      <div className="absolute inset-x-0 bottom-0 z-[1] h-32 sm:h-40 md:h-48 bg-black" />
 
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[2] -mt-10 sm:-mt-8 lg:-mt-10">
         <Link
@@ -69,6 +114,19 @@ const Hero = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="pointer-events-none absolute bottom-5 right-4 z-30 sm:bottom-7 sm:right-6 md:bottom-10 md:right-10">
+        <a
+          href="#lab-status"
+          onClick={handleScrollToLabStatus}
+          className="group pointer-events-auto inline-flex items-center gap-3 rounded-full border border-white/14 bg-slate-950/40 px-4 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl transition hover:bg-slate-950/58"
+        >
+          <span className="text-white/92">Lab Status</span>
+          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/12 text-base text-white transition-transform duration-300 group-hover:translate-y-0.5 motion-safe:animate-[labStatusFloat_1.8s_ease-in-out_infinite]">
+            ↓
+          </span>
+        </a>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import logo from '../assets/연구실_로고_흰색-removebg-preview.png';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           
           <div className="space-y-6">
             <div className="flex items-center gap-3 w-fit">
-              <img src={logo} alt="HSE Lab Logo" className="h-16 w-auto object-contain mix-blend-multiply" />
+              <img src={logo} alt="HSE Lab Logo" className="h-16 w-auto object-contain" />
             </div>
             <p className="text-gray-400 leading-relaxed text-sm pr-4">
               Human &amp; Safety Engineering Lab, Pusan National University. Research in ergonomics, biomechanics, and industrial safety engineering.

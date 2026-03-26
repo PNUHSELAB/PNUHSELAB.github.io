@@ -93,7 +93,7 @@ const Header = () => {
               <img
                 src={pnuLogo}
                 alt="PNU Logo"
-                className={`h-10 sm:h-12 md:h-20 w-auto object-contain transition-all duration-300 ${useDarkHeader ? 'brightness-100 contrast-100' : 'brightness-0 invert contrast-125 drop-shadow-[0_0_18px_rgba(255,255,255,0.16)]'}`}
+                className={`h-7 sm:h-9 md:h-[3.25rem] xl:h-[3.75rem] w-auto object-contain transition-all duration-300 ${useDarkHeader ? 'brightness-100 contrast-100' : 'brightness-0 invert contrast-125 drop-shadow-[0_0_18px_rgba(255,255,255,0.16)]'}`}
               />
               <div className={`h-10 w-px hidden lg:block ${useDarkHeader ? 'bg-slate-300/80' : 'bg-white/20'}`}></div>
               <img
@@ -207,13 +207,14 @@ const Header = () => {
 
           <div className="xl:hidden flex items-center shrink-0">
             <StaggeredMenu
+              key={useDarkHeader ? 'mobile-menu-dark' : 'mobile-menu-light'}
               position="right"
               items={menuItems}
               socialItems={[]}
               displaySocials={false}
               displayItemNumbering
-              menuButtonColor="#0f172a"
-              openMenuButtonColor="#0f172a"
+              menuButtonColor={useDarkHeader ? '#0f172a' : '#ffffff'}
+              openMenuButtonColor={useDarkHeader ? '#0f172a' : '#ffffff'}
               changeMenuColorOnOpen
               colors={useDarkHeader ? ['#e2e8f0', '#cbd5e1'] : ['#d9fff0', '#dbeafe']}
               accentColor="#6cff7f"

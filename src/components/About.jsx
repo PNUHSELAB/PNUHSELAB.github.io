@@ -13,7 +13,7 @@ const About = () => {
             />
           </div>
           <h2 className="text-sm font-semibold text-hse-blue tracking-wide uppercase mb-2">About The Lab</h2>
-          <h3 className="mx-auto max-w-4xl text-[1.65rem] sm:text-[2rem] md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+          <h3 className="mx-auto max-w-5xl text-[1.5rem] sm:text-[1.8rem] md:text-[2.2rem] font-bold text-gray-900 mb-4 leading-[1.2] md:whitespace-nowrap">
             Welcome to The Human &amp; Safety Engineering Lab
           </h3>
           <p className="text-base md:text-lg text-gray-600 leading-relaxed">

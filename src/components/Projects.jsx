@@ -168,7 +168,7 @@ const Projects = () => {
       <div className="mx-auto max-w-6xl px-5 sm:px-7 lg:px-10">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hse-blue">Research</p>
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">Projects</h2>
+          <h2 className="mt-3 text-4xl font-bold tracking-tight text-gray-900 md:text-[3.2rem]">Projects</h2>
           <div className="mt-6 h-1 w-28 rounded-full bg-gradient-to-r from-hse-blue via-slate-500 to-slate-300" />
           <p className="mt-8 max-w-3xl text-base leading-relaxed text-gray-600 md:text-lg">
             Industry-linked and government-supported research projects conducted by the Human &amp; Safety Engineering
@@ -184,7 +184,7 @@ const Projects = () => {
             >
               <div className="flex items-center gap-3">
                 <span className="inline-flex h-4 w-4 rounded-[4px] border-2 border-[#d79b13] bg-[#fff7df]" />
-                <h3 className="text-2xl font-bold tracking-tight text-gray-900 md:text-[2rem]">{group.category}</h3>
+                <h3 className="text-[1.6rem] font-semibold tracking-tight text-gray-900 md:text-[1.85rem]">{group.category}</h3>
               </div>
 
               <div className="mt-10 space-y-8">
@@ -196,12 +196,12 @@ const Projects = () => {
                     <div className="flex items-start gap-4">
                       <span className="mt-3 inline-flex h-3.5 w-3.5 shrink-0 rounded-full border-2 border-[#c18b24] bg-[#fff7df]" />
                       <div className="min-w-0">
-                        <h4 className="text-xl font-extrabold leading-[1.55] tracking-[-0.02em] text-gray-950 md:text-[1.95rem] md:leading-[1.45]">
+                        <h4 className="text-lg font-semibold leading-[1.7] tracking-[-0.01em] text-gray-900 md:text-[1.45rem] md:leading-[1.65]">
                           {item.title}
                         </h4>
-                        <p className="mt-2 text-sm font-medium text-slate-400 md:text-[1.05rem]">{item.meta}</p>
+                        <p className="mt-2 text-sm font-medium text-slate-500 md:text-[0.98rem]">{item.meta}</p>
                         {item.note && (
-                          <p className="mt-5 max-w-5xl text-sm leading-8 text-gray-600 md:text-base">{item.note}</p>
+                          <p className="mt-5 max-w-5xl text-sm leading-7 text-gray-600 md:text-[1rem]">{item.note}</p>
                         )}
                       </div>
                     </div>

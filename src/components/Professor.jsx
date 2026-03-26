@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, Phone, Printer, Mail, MapPin, Briefcase, GraduationCap, Award, CheckCircle } from 'lucide-react';
-import professorPhoto from '../assets/professor.png';
+import professorPhoto from '../assets/professor-jin-2017.jpg';
 
 const Professor = () => {
   const experiences = [
@@ -61,7 +61,7 @@ const Professor = () => {
         {/* Profile Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-12 flex flex-col md:flex-row transition-all hover:shadow-md">
           {/* Photo Placeholder */}
-          <div className="w-full md:w-1/3 bg-white min-h-[400px] flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 relative group overflow-hidden">
+          <div className="w-full md:w-[30%] bg-white min-h-[400px] flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 relative group overflow-hidden">
             <img
               src={professorPhoto}
               alt="Professor Jin Sangeun"
@@ -74,7 +74,7 @@ const Professor = () => {
           </div>
           
           {/* Info & Contact */}
-          <div className="w-full md:w-2/3 p-8 lg:p-12 flex flex-col justify-center relative">
+          <div className="w-full md:w-[70%] p-8 lg:p-12 flex flex-col justify-center relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-hse-green/5 rounded-bl-[100px] -z-10"></div>
             
             <div className="mb-8">
@@ -84,8 +84,17 @@ const Professor = () => {
               <h2 className="text-lg font-medium text-hse-blue tracking-wide">Professor / Director</h2>
             </div>
             
-            <blockquote className="border-l-4 border-hse-green pl-5 italic text-gray-600 mb-10 leading-relaxed text-sm lg:text-base relative bg-gradient-to-r from-green-50/50 to-transparent py-4 rounded-r-lg">
-              "부산대학교 인간공학연구실은 기계가 아닌 사람의 눈높이를 기준으로 합니다. 사람의 몸과 마음, 그리고 생각의 크기와 깊이를 짐작하여, 일상 속에 사람이 접근하게 되는 모든 것에 기계의 냄새를 지우고 사람의 냄새를 입히는 일을 할 것입니다. '사람을 배려하는 따뜻한 마음'이 담긴 제품과 작업장의 설계기술 진보에 힘을 더하는 인간공학연구실이 되겠습니다."
+            <blockquote className="relative mb-10 w-fit max-w-full rounded-2xl border border-emerald-100 bg-gradient-to-r from-emerald-50 via-white to-white px-6 py-6 text-[0.9rem] leading-[1.9] text-gray-700 shadow-sm lg:px-7 lg:py-7 lg:text-[0.96rem]">
+              <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.22em] text-hse-blue">
+                Professor&apos;s Message
+              </span>
+              <p className="max-w-[59rem] font-normal break-keep [word-break:keep-all] [overflow-wrap:normal]">
+                "부산대학교 인간공학연구실은 기계가 아닌 사람의 눈높이를 기준으로 합니다.
+                <br />
+                사람의 몸과 마음, 그리고 생각의 크기와 깊이를 짐작하여, 일상 속에 사람이 접근하게 되는 모든 것에 기계의 냄새를 지우고 사람의 냄새를 입히는 일을 할 것입니다.
+                <br />
+                '사람을 배려하는 따뜻한 마음'이 담긴 제품과 작업장의 설계기술 진보에 힘을 더하는 인간공학연구실이 되겠습니다."
+              </p>
             </blockquote>
             
             {/* Contact Grid */}

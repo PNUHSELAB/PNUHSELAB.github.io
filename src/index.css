@@ -9,6 +9,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Inter', sans-serif;
     @apply text-slate-700 bg-[#FCFCFD]; /* Very subtle premium off-white shadow */
@@ -16,5 +20,14 @@
   h1, h2, h3, h4, h5, h6, .font-primary {
     font-family: 'Outfit', sans-serif;
     letter-spacing: -0.02em; /* Tighter tracking for a highly modern UI feel */
+  }
+}
+
+@keyframes labStatusFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
   }
 }
