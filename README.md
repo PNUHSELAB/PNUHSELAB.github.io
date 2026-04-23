@@ -36,19 +36,114 @@ npm run dev
 # → 터미널에 뜨는 http://localhost:5173 접속
 ```
 
-수정 후 저장하면 브라우저가 자동 새로고침됩니다.
-
-### 배포 (GitHub에 올리기)
-```bash
-git add .
-git commit -m "멤버 업데이트"
-git push origin main
-```
-→ 1~2분 후 https://pnuhselab.github.io 에 자동 반영됩니다. (GitHub Actions 탭에서 진행 상황 확인)
+수정 후 저장하면 브라우저가 자동 새로고침됩니다. 배포 방법은 아래 **2. Git 사용법**을 참고하세요.
 
 ---
 
-## 2. 디렉토리 구조
+## 2. Git 사용법 (초보자용)
+
+Git은 "파일 변경 이력을 저장하고 여러 사람이 공유하는 도구"입니다. 이 홈페이지의 모든 수정은 Git을 통해 GitHub에 올라가고, 그러면 자동으로 배포됩니다.
+
+### 알아야 할 3가지 명령어
+
+| 명령어 | 언제 쓰나 | 하는 일 |
+|---|---|---|
+| `git pull` | **작업 시작 전에 항상** | GitHub의 최신 내용을 내 컴퓨터로 가져옴 |
+| `git commit` | 파일 수정이 끝났을 때 | 내 변경사항을 "체크포인트"로 저장 (내 컴퓨터 안에만) |
+| `git push` | 커밋한 뒤 | 내 체크포인트를 GitHub에 업로드 → 자동 배포 시작 |
+
+세 단어만 외우세요: **pull → (수정) → commit → push**
+
+### 방법 A: GitHub Desktop (GUI 프로그램, 추천)
+
+명령어가 어려우면 **GitHub Desktop**을 쓰세요. 클릭만으로 동일한 작업이 됩니다.
+
+1. https://desktop.github.com/ 에서 다운로드 & 설치
+2. GitHub 계정으로 로그인
+3. `File` → `Clone a repository` → `PNUHSELAB/PNUHSELAB.github.io` 선택 → 폴더 지정
+4. 평소 작업 흐름:
+   - 상단 **"Fetch origin"** → 파란색 "Pull origin"으로 바뀌면 클릭해서 최신 내용 받아오기
+   - VS Code 등 편집기에서 파일 수정
+   - GitHub Desktop으로 돌아오면 왼쪽에 바뀐 파일이 보임
+   - 하단 박스에 커밋 메시지 입력 (예: "학부생 추가")
+   - **"Commit to main"** 클릭 → 그 다음 상단 **"Push origin"** 클릭
+
+끝. 1~2분 후 https://pnuhselab.github.io 에 반영됩니다.
+
+### 방법 B: 터미널 명령어
+
+#### 작업 시작 전 (매번!)
+```bash
+git pull origin main
+```
+다른 사람이 먼저 수정했을 수 있으니 먼저 받아오세요. **이걸 빼먹으면 나중에 충돌(conflict)이 날 수 있음.**
+
+#### 수정 끝낸 뒤
+```bash
+git status                     # 어떤 파일이 바뀌었는지 확인
+git add .                      # 바뀐 파일을 모두 커밋 대상에 추가
+git commit -m "설명 문구"      # 체크포인트로 저장
+git push origin main           # GitHub에 업로드 (= 자동 배포 시작)
+```
+
+실제 예시:
+```bash
+git pull origin main
+# (파일 수정 작업)
+git add .
+git commit -m "2026년 논문 1건 추가"
+git push origin main
+```
+
+### 커밋 메시지 쓰는 팁
+- 무엇을 바꿨는지 한 줄 요약: "이현진 관심분야 수정", "2025 수상 뉴스 추가"
+- "수정" 같은 모호한 단어보다 구체적으로
+- 한글/영어 상관없음
+
+### 자주 만나는 상황
+
+**Q1. `Your branch is behind 'origin/main' by N commits` 메시지**
+→ 다른 사람이 먼저 푸시했습니다. `git pull origin main` 한 뒤 다시 `git push` 하세요.
+
+**Q2. 수정했는데 되돌리고 싶음 (아직 commit 전)**
+```bash
+git checkout -- .    # 모든 변경 되돌림 — 복구 불가, 주의!
+```
+특정 파일만 되돌리려면: `git checkout -- src/components/Members.jsx`
+
+**Q3. commit은 했는데 push 전에 취소하고 싶음**
+```bash
+git reset HEAD~1     # 마지막 커밋만 취소, 파일 내용은 그대로 남음
+```
+
+**Q4. push까지 했는데 잘못 올렸음**
+절대 `git push --force` 같은 건 쓰지 마세요. 보통은 잘못된 커밋을 **되돌리는 새 커밋**을 만듭니다:
+```bash
+git log --oneline        # 되돌릴 커밋 해시 확인
+git revert <커밋해시>    # 되돌림 커밋 생성
+git push origin main
+```
+애매하면 LLM이나 관리자에게 현재 상태(`git log --oneline`, `git status` 결과)를 보여주고 물어보세요.
+
+**Q5. `merge conflict` / `CONFLICT` 에러**
+다른 사람과 같은 파일의 같은 줄을 동시에 바꿨을 때 발생. 파일에 `<<<<<<<`, `=======`, `>>>>>>>` 같은 표시가 생깁니다.
+→ 혼자 처리하기 어려우니 **이 README + 충돌난 파일 내용 + 에러 메시지**를 LLM에게 보여주고 도움 요청.
+
+**Q6. push할 때 비밀번호를 묻는데 뭘 넣어야 하나요?**
+GitHub는 비밀번호 대신 **Personal Access Token**을 씁니다:
+- GitHub → 우측 상단 프로필 → Settings → Developer settings → Personal access tokens → **Tokens (classic)** → Generate new token
+- `repo` 권한 체크, 만료 기간 설정 → 생성된 토큰을 비밀번호 자리에 붙여넣기
+- GitHub Desktop을 쓰면 이 과정이 필요 없습니다 (자동 처리)
+
+### 최초 1회 설정 (터미널 사용자만)
+```bash
+git config --global user.name "이름"
+git config --global user.email "email@pusan.ac.kr"
+```
+
+---
+
+## 3. 디렉토리 구조
 
 ```
 PNUHSELAB.github.io/
@@ -82,7 +177,7 @@ PNUHSELAB.github.io/
 
 ---
 
-## 3. 페이지 경로 (URL ↔ 파일)
+## 4. 페이지 경로 (URL ↔ 파일)
 
 | URL | 파일 |
 |---|---|
@@ -104,9 +199,9 @@ PNUHSELAB.github.io/
 
 ---
 
-## 4. 자주 하는 수정 작업
+## 5. 자주 하는 수정 작업
 
-### 4-1. 멤버 추가/수정/삭제 — [src/components/Members.jsx](src/components/Members.jsx)
+### 5-1. 멤버 추가/수정/삭제 — [src/components/Members.jsx](src/components/Members.jsx)
 
 파일 맨 위쪽 `memberGroups` 배열에 카테고리별로 나뉘어 있습니다.
 
@@ -140,7 +235,7 @@ PNUHSELAB.github.io/
 }
 ```
 
-### 4-2. 논문 추가 — [src/components/Publication.jsx](src/components/Publication.jsx) 외
+### 5-2. 논문 추가 — [src/components/Publication.jsx](src/components/Publication.jsx) 외
 
 연도별로 그룹이 나뉘어 있습니다. 해당 연도 그룹의 `items` 배열에 추가:
 ```jsx
@@ -161,7 +256,7 @@ PNUHSELAB.github.io/
 
 국내 저널/학회/단행본도 같은 방식이며 각각 별도 파일에 있습니다.
 
-### 4-3. 뉴스/수상 추가 — [src/components/News.jsx](src/components/News.jsx)
+### 5-3. 뉴스/수상 추가 — [src/components/News.jsx](src/components/News.jsx)
 
 1. 이미지를 `src/assets/`에 추가 (예: `news-award-2026-excellence.png`)
 2. 파일 맨 위 import 추가
@@ -180,7 +275,7 @@ PNUHSELAB.github.io/
    }
    ```
 
-### 4-4. 프로젝트 추가 — [src/components/Projects.jsx](src/components/Projects.jsx)
+### 5-4. 프로젝트 추가 — [src/components/Projects.jsx](src/components/Projects.jsx)
 
 `projectGroups` 배열의 해당 카테고리(`Industry Project`, `Government Project`, `Academic Research`)에 추가:
 ```jsx
@@ -191,15 +286,15 @@ PNUHSELAB.github.io/
 }
 ```
 
-### 4-5. 교수 활동 업데이트 — [src/components/Professor.jsx](src/components/Professor.jsx)
+### 5-5. 교수 활동 업데이트 — [src/components/Professor.jsx](src/components/Professor.jsx)
 
 `activities` 배열에서 새 역할 추가 또는 종료일 갱신. 날짜 형식은 `'YY.MM~'` (진행중) 또는 `'YY.MM~YY.MM'`.
 
-### 4-6. 홈 화면 문구/키워드 — [src/components/Hero.jsx](src/components/Hero.jsx)
+### 5-6. 홈 화면 문구/키워드 — [src/components/Hero.jsx](src/components/Hero.jsx)
 
 포커스 키워드 배열 수정: `['Safety Engineering', 'Cognitive Engineering', 'Biomechanics', 'HMI']`
 
-### 4-7. 연구실 운영 시간(지구본 상태등) — [src/components/LabStatusGlobe.jsx](src/components/LabStatusGlobe.jsx)
+### 5-7. 연구실 운영 시간(지구본 상태등) — [src/components/LabStatusGlobe.jsx](src/components/LabStatusGlobe.jsx)
 
 ```jsx
 const STATUS_START = { hour: 8, minute: 30 };   // 운영 시작
@@ -209,7 +304,7 @@ const STATUS_END   = { hour: 18, minute: 0 };   // 운영 종료
 
 ---
 
-## 5. 이미지 가이드
+## 6. 이미지 가이드
 
 | 용도 | 저장 위치 | 파일명 규칙 |
 |---|---|---|
@@ -223,7 +318,7 @@ const STATUS_END   = { hour: 18, minute: 0 };   // 운영 종료
 
 ---
 
-## 6. LLM에게 수정 요청할 때 — 판단 가이드
+## 7. LLM에게 수정 요청할 때 — 판단 가이드
 
 > 이 섹션은 ChatGPT / Claude 등 LLM이 이 저장소를 처음 볼 때 **반드시 읽고 따라야 할 규칙**입니다. 사용자(연구실 구성원)에게 "이거 README.md 같이 올리고 부탁해" 라고 안내하세요.
 
@@ -254,14 +349,15 @@ const STATUS_END   = { hour: 18, minute: 0 };   // 운영 종료
 
 7. **확인 의무**: 수정 후 사용자에게 **반드시 다음을 안내**:
    ```
-   변경 확인 방법:
-   1. 터미널에서 `npm run dev` 실행
-   2. 브라우저에서 해당 페이지 확인
+   변경 확인 및 배포 방법:
+   1. (수정 전이라면) git pull origin main  ← 최신 내용 받아오기
+   2. 터미널에서 `npm run dev` 실행 → 브라우저에서 해당 페이지 확인
    3. 이상 없으면:
       git add .
       git commit -m "간단한 설명"
       git push origin main
    4. 1~2분 후 https://pnuhselab.github.io 에서 반영 확인
+   (GitHub Desktop 쓰는 경우: Pull → 수정 → Commit to main → Push origin)
    ```
 
 8. **건드리면 위험한 것 (사용자가 명시적으로 요청해도 확인 후 진행)**:
@@ -285,7 +381,7 @@ LLM에게 이렇게 요청하면 가장 안정적입니다:
 
 ---
 
-## 7. 문제가 생겼을 때
+## 8. 문제가 생겼을 때
 
 - **로컬에서 페이지가 하얗게 나옴**: 브라우저 F12 → Console 탭의 빨간 에러 메시지를 LLM에게 보여주기. 대부분 콤마 누락이나 import 오타.
 - **GitHub에 push했는데 반영이 안 됨**: GitHub 저장소 페이지 → Actions 탭에서 워크플로우 실행 상태 확인. 빨간 X가 있으면 로그 확인.
@@ -294,6 +390,6 @@ LLM에게 이렇게 요청하면 가장 안정적입니다:
 
 ---
 
-## 8. 연락처
+## 9. 연락처
 
 이 문서로도 해결이 안 되는 문제는 저장소 관리자(이현진)에게 문의하세요.
