@@ -5,7 +5,6 @@ import sejungLeePhoto from '../assets/sejung-lee.jpg';
 import seulgiKimPhoto from '../assets/seulgi-kim.jpg';
 import inaJeongPhoto from '../assets/ina-jeong.jpg';
 import hanboZouPhoto from '../assets/hanbo-zou.jpg';
-import seonaJeongPhoto from '../assets/seona-jeong.jpg';
 import hyunjinLeePhoto from '../assets/hyunjin-lee.jpg';
 import siyoonParkPhoto from '../assets/siyoon-park.jpg';
 import joonsikYoonPhoto from '../assets/joonsik-yoon.jpg';
@@ -59,13 +58,7 @@ const Members = () => {
     {
       id: 'ms-students',
       title: "M.S. Students",
-      members: [
-        {
-          name: "정선아 (Seona Jeong)",
-          interest: "LLM, Ontology",
-          img: seonaJeongPhoto
-        }
-      ]
+      members: []
     },
     {
       id: 'research-staff',
